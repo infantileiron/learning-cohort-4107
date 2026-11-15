@@ -30,3 +30,12 @@ class InterventionInput(BaseModel):
  week_index:int=Field(ge=1,le=8)
  note:str=Field(min_length=8,max_length=2000)
 class NoteInput(BaseModel):note:str=Field(min_length=8,max_length=2000)
+class CleanupInput(BaseModel):
+ learner:str=Field(min_length=1,max_length=60)
+ reason:str=Field(default='',max_length=500)
+ @field_validator('learner')
+ @classmethod
+ def code(cls,v):
+  v=v.strip()
+  if not v:raise ValueError('工号不能为空')
+  return v

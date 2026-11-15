@@ -15,3 +15,9 @@ class Intervention(Base):
 class Audit(Base):
  __tablename__='audits'
  id=Column(Integer,primary_key=True);actor=Column(String(100));action=Column(String(200));created=Column(String(40))
+class PurgedLearner(Base):
+ __tablename__='purged_learners'
+ id=Column(Integer,primary_key=True);learner=Column(String(60),unique=True,nullable=False,index=True);requested_at=Column(String(40));requested_by=Column(String(100))
+class Cleanup(Base):
+ __tablename__='cleanups'
+ id=Column(Integer,primary_key=True);learner=Column(String(60),nullable=False,index=True);reason=Column(Text,default='');status=Column(String(20),default='queued');copies=Column(JSON,nullable=True);error=Column(Text,default='');requested_by=Column(String(100));requested_at=Column(String(40));completed_at=Column(String(40),nullable=True)
